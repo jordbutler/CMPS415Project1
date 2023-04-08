@@ -6,9 +6,16 @@
    "age": 84
   },
   {
-  "username": "sllysally.",
+  "username": "sllysally",
   "password": "123password",
-  "fullname": "Loop Drive",
+  "fullname": "Sally Mae",
    "age": 55
+  },
+  {
+  "username": "greg529",
+  "password": "gregstheman",
+  "fullname": "Gregory Forman",
+   "age": 63
   }
+  
 ]

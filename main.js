@@ -10,7 +10,7 @@ app.post('/tickets/add', (req, res) => {
     
     const ticketData = req.body
     
-    if (ticketData.id == null || ticketData.age == null || ticketData.username == null || ticketData.password == null) {
+    if (ticketData.id == null || ticketData.type == null || ticketData.subject == null || ticketData.status == null) {
         return res.status(401).send({error: true, msg: 'Ticket data missing'})
     }
     

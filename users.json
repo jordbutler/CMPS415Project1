@@ -1,12 +1,14 @@
 [
   {
-  "name": "Mega Corp.",
-  "order_count": 83,
-  "address": "Infinity Loop Drive"
+  "username": "jdoe234",
+  "password": "password123",
+  "fullname": "John Doe",
+   "age": 84
   },
   {
-  "name": "Corp.",
-  "order_count": 3,
-  "address": "Loop Drive"
+  "username": "sllysally.",
+  "password": "123password",
+  "fullname": "Loop Drive",
+   "age": 55
   }
 ]

@@ -5,12 +5,7 @@
   "subject": "MFP not working right",
   "description": "Printer Malfunction",
   "priority": "med",
-  "status": "open",
-  "recipient": "support_example@selu.edu",
-  "submitter": "my_example@selu.edu",
-  "assignee_id": 235323,
-  "follower_ids": [235323, 234],
-  "tags": ["enterprise", "printers"],
+  "status": "open"
   },
   {
   "id": 36925,
@@ -18,12 +13,7 @@
   "subject": "Scheduled maintenance needed",
   "description": "It is time for maintenance",
   "priority": "med",
-  "status": "open",
-  "recipient": "support_example@selu.edu",
-  "submitter": "my_example@selu.edu",
-  "assignee_id": 582471,
-  "follower_ids": [582471, 842],
-  "tags": ["enterprise", "printers"],
+  "status": "open"
   },
   {
   "id": 78945,
@@ -31,12 +21,7 @@
   "subject": "Printer out of ink",
   "description": "The Printer has run out of ink",
   "priority": "low",
-  "status": "open",
-  "recipient": "support_example@selu.edu",
-  "submitter": "my_example@selu.edu",
-  "assignee_id": 465829,
-  "follower_ids": [465829, 296],
-  "tags": ["printers"],
+  "status": "open"
   }
   
 ]

@@ -1,21 +1,42 @@
 [
   {
-  "username": "jdoe234",
-  "password": "password123",
-  "fullname": "John Doe",
-   "age": 84
+  "id": 25814,
+  "type": "incident",
+  "subject": "MFP not working right",
+  "description": "Printer Malfunction",
+  "priority": "med",
+  "status": "open",
+  "recipient": "support_example@selu.edu",
+  "submitter": "my_example@selu.edu",
+  "assignee_id": 235323,
+  "follower_ids": [235323, 234],
+  "tags": ["enterprise", "printers"],
   },
   {
-  "username": "sllysally",
-  "password": "123password",
-  "fullname": "Sally Mae",
-   "age": 55
+  "id": 36925,
+  "type": "maintenance",
+  "subject": "Scheduled maintenance needed",
+  "description": "It is time for maintenance",
+  "priority": "med",
+  "status": "open",
+  "recipient": "support_example@selu.edu",
+  "submitter": "my_example@selu.edu",
+  "assignee_id": 582471,
+  "follower_ids": [582471, 842],
+  "tags": ["enterprise", "printers"],
   },
   {
-  "username": "greg529",
-  "password": "gregstheman",
-  "fullname": "Gregory Forman",
-   "age": 63
+  "id": 78945,
+  "type": "refill",
+  "subject": "Printer out of ink",
+  "description": "The Printer has run out of ink",
+  "priority": "low",
+  "status": "open",
+  "recipient": "support_example@selu.edu",
+  "submitter": "my_example@selu.edu",
+  "assignee_id": 465829,
+  "follower_ids": [465829, 296],
+  "tags": ["printers"],
   }
   
 ]

@@ -4,60 +4,60 @@ const app = express()
 app.use(express.json())
 
 /* POST Method */
-app.post('/user/add', (req, res) => {
+app.post('/tickets/add', (req, res) => {
     
-    const existUsers = getUserData()
+    const existingTickets = getTicketData()
     
-    const userData = req.body
+    const ticketData = req.body
     
-    if (userData.fullname == null || userData.age == null || userData.username == null || userData.password == null) {
-        return res.status(401).send({error: true, msg: 'User data missing'})
+    if (ticketData.id == null || ticketData.age == null || ticketData.username == null || ticketData.password == null) {
+        return res.status(401).send({error: true, msg: 'Ticket data missing'})
     }
     
     //check if the username exist already
-    const findExist = existUsers.find( user => user.username === userData.username )
+    const findExist = existingTickets.find( user => user.username === userData.username )
     if (findExist) {
-        return res.status(409).send({error: true, msg: 'username already exist'})
+        return res.status(409).send({error: true, msg: 'Ticket already exist'})
     }
     
-    existUsers.push(userData)
+    existingTickets.push(ticketData)
     
-    saveUserData(existUsers);
-    res.send({success: true, msg: 'User data added successfully'})
+    saveTicketData(existingTickets);
+    res.send({success: true, msg: 'Ticket data added successfully'})
 })
 
 /* GET-All Method */
-app.get('/user/list', (req, res) => {
-    const users = getUserData()
-    res.send(users)
+app.get('/tickets/list', (req, res) => {
+    const tickets = getTicketData()
+    res.send(tickets)
 })
 
 /* GET Method */
-app.get('/user/:username', (req, res) => {
+app.get('/tickets/:id', (req, res) => {
     
-    const username = req.params.username
+    const ticket = req.params.id
     
-    const userData = req.body
+    const ticketData = req.body
     
-    const existUsers = getUserData()
+    const existingTickets = getTicketData()
     
-    //check if the username exist or not       
-    const findExist = existUsers.find( user => user.username === username )
+    //check if the ticket exist or not       
+    const findExist = existingTickets.find( ticket => ticket.id === id )
     if (!findExist) {
-        return res.status(409).send({error: true, msg: 'username not exist'})
+        return res.status(409).send({error: true, msg: 'ticket does not exist'})
     }
     return res.send(findExist)
 })
 
 
 
-const saveUserData = (data) => {
+const saveTicketData = (data) => {
     const stringifyData = JSON.stringify(data)
-    fs.writeFileSync('users.json', stringifyData)
+    fs.writeFileSync('tickets.json', stringifyData)
 }
 //get the user data from json file
-const getUserData = () => {
-    const jsonData = fs.readFileSync('users.json')
+const getTicketData = () => {
+    const jsonData = fs.readFileSync('tickets.json')
     return JSON.parse(jsonData)    
 }
 /* util functions ends */

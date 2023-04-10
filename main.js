@@ -3,10 +3,10 @@ const fs = require('fs')
 
 const app = express()
 
-//this line is required to parse the request body
+
 app.use(express.json())
 
-/* Create - POST method */
+/* POST Method */
 app.post('/user/add', (req, res) => {
     //get the existing user data
     const existUsers = getUserData()
@@ -14,7 +14,7 @@ app.post('/user/add', (req, res) => {
     //get the new user data from post request
     const userData = req.body
 
-    //check if the userData fields are missing
+    //User needs a fullname, age, username, and password
     if (userData.fullname == null || userData.age == null || userData.username == null || userData.password == null) {
         return res.status(401).send({error: true, msg: 'User data missing'})
     }
@@ -25,22 +25,22 @@ app.post('/user/add', (req, res) => {
         return res.status(409).send({error: true, msg: 'username already exist'})
     }
 
-    //append the user data
+    
     existUsers.push(userData)
 
-    //save the new user data
+    
     saveUserData(existUsers);
     res.send({success: true, msg: 'User data added successfully'})
 
 })
 
-/* Read - GET method */
+/* GET-all users Method */
 app.get('/user/list', (req, res) => {
     const users = getUserData()
     res.send(users)
 })
 
-/* Update - Patch method */
+/* GET a User Method */
 app.get('/user/:username', (req, res) => {
     //get the username from url
     const username = req.params.username
@@ -60,26 +60,7 @@ app.get('/user/:username', (req, res) => {
    res.send(findExist)
 })
 
-/* Delete - Delete method */
-app.delete('/user/delete/:username', (req, res) => {
-    const username = req.params.username
 
-    //get the existing userdata
-    const existUsers = getUserData()
-
-    //filter the userdata to remove it
-    const filterUser = existUsers.filter( user => user.username !== username )
-
-    if ( existUsers.length === filterUser.length ) {
-        return res.status(409).send({error: true, msg: 'username does not exist'})
-    }
-
-    //save the filtered data
-    saveUserData(filterUser)
-
-    res.send({success: true, msg: 'User removed successfully'})
-    
-})
 
 
 /* util functions */

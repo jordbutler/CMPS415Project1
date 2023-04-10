@@ -41,7 +41,7 @@ app.get('/user/list', (req, res) => {
 })
 
 /* Update - Patch method */
-app.patch('/user/:username', (req, res) => {
+app.get('/user/:username', (req, res) => {
     //get the username from url
     const username = req.params.username
 

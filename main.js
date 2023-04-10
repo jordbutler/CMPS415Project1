@@ -41,7 +41,7 @@ app.get('/user/list', (req, res) => {
 })
 
 /* Update - Patch method */
-app.patch('/user/update/:username', (req, res) => {
+app.patch('/user/:username', (req, res) => {
     //get the username from url
     const username = req.params.username
 
@@ -57,16 +57,7 @@ app.patch('/user/update/:username', (req, res) => {
         return res.status(409).send({error: true, msg: 'username not exist'})
     }
 
-    //filter the userdata
-    const updateUser = existUsers.filter( user => user.username !== username )
-
-    //push the updated data
-    updateUser.push(userData)
-
-    //finally save it
-    saveUserData(updateUser)
-
-    res.send({success: true, msg: 'User data updated successfully'})
+   res.send(findExist)
 })
 
 /* Delete - Delete method */

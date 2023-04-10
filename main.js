@@ -6,6 +6,12 @@ const app = express()
 
 app.use(express.json())
 
+/* GET Method */
+app.get('/', (req, res) => {
+    res.send ({ message: 'Running...'})
+    
+})
+
 /* POST Method */
 app.post('/user/add', (req, res) => {
     //get the existing user data

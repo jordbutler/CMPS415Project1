@@ -1,66 +1,113 @@
 const express = require('express')
 const fs = require('fs')
+
 const app = express()
+
+//this line is required to parse the request body
 app.use(express.json())
 
-/* POST Method */
-app.post('/tickets/add', (req, res) => {
+/* Create - POST method */
+app.post('/user/add', (req, res) => {
+    //get the existing user data
+    const existUsers = getUserData()
     
-    const existingTickets = getTicketData()
-    
-    const ticketData = req.body
-    
-    if (ticketData.id == null || ticketData.type == null || ticketData.subject == null || ticketData.status == null) {
-        return res.status(401).send({error: true, msg: 'Ticket data missing'})
+    //get the new user data from post request
+    const userData = req.body
+
+    //check if the userData fields are missing
+    if (userData.fullname == null || userData.age == null || userData.username == null || userData.password == null) {
+        return res.status(401).send({error: true, msg: 'User data missing'})
     }
     
     //check if the username exist already
-    const findExist = existingTickets.find( user => user.username === userData.username )
+    const findExist = existUsers.find( user => user.username === userData.username )
     if (findExist) {
-        return res.status(409).send({error: true, msg: 'Ticket already exist'})
+        return res.status(409).send({error: true, msg: 'username already exist'})
     }
-    
-    existingTickets.push(ticketData)
-    
-    saveTicketData(existingTickets);
-    res.send({success: true, msg: 'Ticket data added successfully'})
+
+    //append the user data
+    existUsers.push(userData)
+
+    //save the new user data
+    saveUserData(existUsers);
+    res.send({success: true, msg: 'User data added successfully'})
+
 })
 
-/* GET-All Method */
-app.get('/tickets/list', (req, res) => {
-    const tickets = getTicketData()
-    res.send(tickets)
+/* Read - GET method */
+app.get('/user/list', (req, res) => {
+    const users = getUserData()
+    res.send(users)
 })
 
-/* GET Method */
-app.get('/tickets/:id', (req, res) => {
-    
-    const ticket = req.params.id
-    
-    const ticketData = req.body
-    
-    const existingTickets = getTicketData()
-    
-    //check if the ticket exist or not       
-    const findExist = existingTickets.find( ticket => ticket.id === id )
+/* Update - Patch method */
+app.patch('/user/update/:username', (req, res) => {
+    //get the username from url
+    const username = req.params.username
+
+    //get the update data
+    const userData = req.body
+
+    //get the existing user data
+    const existUsers = getUserData()
+
+    //check if the username exist or not       
+    const findExist = existUsers.find( user => user.username === username )
     if (!findExist) {
-        return res.status(409).send({error: true, msg: 'ticket does not exist'})
+        return res.status(409).send({error: true, msg: 'username not exist'})
     }
-    return res.send(findExist)
+
+    //filter the userdata
+    const updateUser = existUsers.filter( user => user.username !== username )
+
+    //push the updated data
+    updateUser.push(userData)
+
+    //finally save it
+    saveUserData(updateUser)
+
+    res.send({success: true, msg: 'User data updated successfully'})
+})
+
+/* Delete - Delete method */
+app.delete('/user/delete/:username', (req, res) => {
+    const username = req.params.username
+
+    //get the existing userdata
+    const existUsers = getUserData()
+
+    //filter the userdata to remove it
+    const filterUser = existUsers.filter( user => user.username !== username )
+
+    if ( existUsers.length === filterUser.length ) {
+        return res.status(409).send({error: true, msg: 'username does not exist'})
+    }
+
+    //save the filtered data
+    saveUserData(filterUser)
+
+    res.send({success: true, msg: 'User removed successfully'})
+    
 })
 
 
+/* util functions */
 
-const saveTicketData = (data) => {
+//read the user data from json file
+const saveUserData = (data) => {
     const stringifyData = JSON.stringify(data)
-    fs.writeFileSync('tickets.json', stringifyData)
+    fs.writeFileSync('users.json', stringifyData)
 }
+
 //get the user data from json file
-const getTicketData = () => {
-    const jsonData = fs.readFileSync('tickets.json')
+const getUserData = () => {
+    const jsonData = fs.readFileSync('users.json')
     return JSON.parse(jsonData)    
 }
+
 /* util functions ends */
+
+
 //configure the server port
 app.listen(3000, () => {
     console.log('Server runs on port 3000')
